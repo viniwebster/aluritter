@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { secundaryColor, white } from "../../styles/variables"
 
 const StyledButton = styled.button`
-  background-color: ${secundaryColor};
+  background-color: ${props => props.color ? props.color : secundaryColor};
   color: ${white};
   outline: none;
   border: none;
@@ -15,12 +15,13 @@ const StyledButton = styled.button`
 
 interface Props {
   text: string,
-  onClick?: () => void
+  onClick?: () => void,
+  color?: '#10B981' | '#0EA5E9' | '#EF4444'
 }
 
-const Button = ({ text, onClick } : Props) => {
+const Button = ({ text, onClick, color } : Props) => {
   return(
-    <StyledButton onClick={onClick}>
+    <StyledButton onClick={onClick} color={color}>
       {text}
     </StyledButton>
   )
