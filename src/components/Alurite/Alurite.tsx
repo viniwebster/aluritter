@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { primaryColor } from "../../styles/variables"
-import { IAlurite } from "../../interface/IAlurite"
+import { IAlurite } from "../../interfaces/IAlurite"
 
 const StyledAlurite = styled.div`
   display: flex;
