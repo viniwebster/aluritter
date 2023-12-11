@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import { primaryColor } from "../../styles/variables"
+import { IAlurite } from "../../interface/IAlurite"
 
 const StyledAlurite = styled.div`
   display: flex;
@@ -12,6 +13,7 @@ const StyledAlurite = styled.div`
   border: 1px solid #E5E7EB;
   background: #FFF;
   color: #6B7280;
+  margin-top: 18px;
 
   div {
     display: flex;
@@ -23,13 +25,13 @@ const StyledAlurite = styled.div`
   }
 `
 
-const Alurite = () => {
+const Alurite = ({ data, email, message } : IAlurite) => {
   return(
     <StyledAlurite>
-      <p>Seven7OfCode com React =DDD</p>
+      <p>{message}</p>
       <div>
-        <p>matheushcastiglioni@gmail.com</p>
-        <span>6/30/2023, 3:52:49 PM</span>
+        <p>{email}</p>
+        <span>{new Date(data).toLocaleString()}</span>
       </div>
     </StyledAlurite>
   )
