@@ -2,8 +2,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import NotFound from './pages/NotFound'
 import Home from "./pages/Home"
 import { GlobalStyles } from "./styles/GlobalStyles"
-import SingUp from "./pages/SingUp"
-import SingIn from "./pages/SingIn"
+import SignUp from "./pages/SignUp"
+import SignIn from "./pages/SignIn"
 
 interface Props {
   children: React.ReactElement
@@ -11,7 +11,7 @@ interface Props {
 
 const PrivateRoute = ({ children } : Props) => {
   if (!localStorage.getItem("access-token")) {
-    return <Navigate to="/singin" />;
+    return <Navigate to="/signin" />;
   }
   return children;
 };
@@ -30,8 +30,8 @@ function App() {
       <Routes>
         <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
         <Route path="*" element={<NotFound />} />
-        <Route path="/singup" element={<PublicRoute><SingUp /></PublicRoute>} />
-        <Route path="/singin" element={<PublicRoute><SingIn /></PublicRoute>} />
+        <Route path="/signup" element={<PublicRoute><SignUp /></PublicRoute>} />
+        <Route path="/signin" element={<PublicRoute><SignIn /></PublicRoute>} />
       </Routes>
     </BrowserRouter>
   )
