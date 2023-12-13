@@ -18,9 +18,12 @@ const StyledAlurite = styled.div`
   div {
     display: flex;
     justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
 
     p {
       color: ${primaryColor};
+      word-break: break-all;
     }
   }
 `
