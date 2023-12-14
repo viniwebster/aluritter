@@ -5,7 +5,11 @@ import Logo from "../components/Logo/Logo";
 import Button from "../components/Button/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { primaryColor } from "../styles/variables";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 
 const StyledSection = styled.section`
   width: 100%;
@@ -43,6 +47,7 @@ const StyledLink = styled(Link)`
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState("");
 
   const navigate = useNavigate();
   const onSignUp = (event: React.FormEvent<HTMLFormElement>) => {
@@ -52,15 +57,26 @@ const SignUp = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        user.getIdToken().then(jwt => localStorage.setItem("access-token", jwt))
+        user
+          .getIdToken()
+          .then((jwt) => localStorage.setItem("access-token", jwt));
+        updateProfile(user, {
+          displayName: userName,
+        })
+          .then(() => {
+            setUserName("");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
         setEmail("");
         setPassword("");
-        navigate('/');
+        navigate("/");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage)
+        console.log(errorCode, errorMessage);
       });
   };
 
@@ -68,6 +84,12 @@ const SignUp = () => {
     <StyledSection>
       <StyledForm onSubmit={onSignUp}>
         <Logo />
+        <Input
+          value={userName}
+          placeholder="Insira seu nome de usuário"
+          onChange={(event) => setUserName(event)}
+          type="text"
+        />
         <Input
           value={email}
           placeholder="email@exemplo.com"
