@@ -1,6 +1,6 @@
 export interface IAlurite {
   message: string,
-  email: string,
+  userName: string,
   data: Date,
   id?: string
 }
