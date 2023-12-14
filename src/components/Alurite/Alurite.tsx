@@ -28,12 +28,12 @@ const StyledAlurite = styled.div`
   }
 `
 
-const Alurite = ({ data, email, message } : IAlurite) => {
+const Alurite = ({ data, userName, message } : IAlurite) => {
   return(
     <StyledAlurite>
       <p>{message}</p>
       <div>
-        <p>{email}</p>
+        <p>{userName}</p>
         <span>{new Date(data).toLocaleString()}</span>
       </div>
     </StyledAlurite>

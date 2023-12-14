@@ -40,10 +40,10 @@ const StyledHeader = styled.header`
 `;
 
 interface Props {
-  email: string;
+  userName: string;
 }
 
-const Header = ({ email }: Props) => {
+const Header = ({ userName }: Props) => {
   const navigate = useNavigate();
   const handleLogout = () => {
     const auth = getAuth();
@@ -61,7 +61,7 @@ const Header = ({ email }: Props) => {
     <StyledHeader>
       <Logo />
       <div>
-        <p>{email}</p>
+        <p>{userName}</p>
         <Button text="sair" color="#EF4444" onClick={() => handleLogout()} />
       </div>
     </StyledHeader>
