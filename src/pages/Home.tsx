@@ -8,7 +8,6 @@ import { darkFontColor } from "../styles/variables";
 import { getDatabase, ref, set, onValue } from "firebase/database";
 import { v4 as uuidv4 } from "uuid";
 import { IAlurite } from "../interfaces/IAlurite";
-import { jwtDecode } from "jwt-decode";
 import { getAuth } from "firebase/auth";
 
 const StyledSection = styled.section`
@@ -44,10 +43,10 @@ const StyledForm = styled.form`
 const Home = () => {
   const [alurite, setAlurite] = useState("");
   const [messages, setMessages] = useState<IAlurite[]>([]);
-  const user = jwtDecode<{email: string}>(localStorage.getItem("access-token")!);
+  const auth = getAuth();
+  const user = auth.currentUser
 
   useEffect(() => {
-    getAuth();
     onValue(ref(getDatabase(), "alurites"), (snapshot) => {
       const data: IAlurite[] = [];
       snapshot.forEach((registry) => {
@@ -65,7 +64,7 @@ const Home = () => {
     const db = getDatabase();
     set(ref(db, `alurites/${uuidv4()}`), {
       message: alurite,
-      email: user.email,
+      userName: user?.displayName,
       data: new Date().getTime(),
       id: uuidv4()
     })
@@ -75,7 +74,7 @@ const Home = () => {
 
   return (
     <>
-      <Header email={user.email} />
+      <Header userName={user?.displayName ?? ""} />
       <StyledSection>
         <StyledForm onSubmit={onAlurite}>
           <h2>Alurite agora mesmo...</h2>
@@ -96,7 +95,7 @@ const Home = () => {
               key={alurite.id}
               data={alurite.data}
               message={alurite.message}
-              email={alurite.email}
+              userName={alurite.userName}
             />
           ))}
       </StyledSection>
